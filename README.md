@@ -1,6 +1,8 @@
 # STB Companion App
 Android Code to read and write NFC Tags
 
+Thanks to Learn2Crack for the base code and tutorial https://github.com/Learn2Crack/android-nfc-tag-read-write
+
 Requires Android Studio https://developer.android.com/studio/
 
 # Running the app locally
