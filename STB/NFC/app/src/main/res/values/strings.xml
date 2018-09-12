@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">STB Reader/Writer</string>
+    <string name="message_write_error">Error Writing Message</string>
+    <string name="message_write_success">Successfully written to STB</string>
+    <string name="message_write_progress">Writing to STB..</string>
+    <string name="message_tag_detected">STB Detected</string>
+    <string name="message_read_tag">Read from STB</string>
+    <string name="message_write_tag">Write to STB</string>
+    <string name="message_tap_tag">Tap the STB to your device</string>
+    <string name="hint_message">Patient Triage Notes</string>
+</resources>
