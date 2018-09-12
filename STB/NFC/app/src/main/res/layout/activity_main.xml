@@ -15,13 +15,21 @@
         android:id="@+id/et_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_message"/>
+        android:hint="@string/hint_message_1"/>
+
+    <EditText
+        android:id="@+id/et_message_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_message"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:hint="@string/hint_message_2"/>
 
     <Button
         android:id="@+id/btn_write"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_message"
+        android:layout_below="@+id/et_message_2"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="@string/message_write_tag"
         style="@style/Widget.AppCompat.Button.Colored"/>

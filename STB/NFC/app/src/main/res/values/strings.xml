@@ -7,5 +7,6 @@
     <string name="message_read_tag">Read from STB</string>
     <string name="message_write_tag">Write to STB</string>
     <string name="message_tap_tag">Tap the STB to your device</string>
-    <string name="hint_message">Patient Triage Notes</string>
+    <string name="hint_message_1">Patient Triage Notes 1</string>
+    <string name="hint_message_2">Patient Triage Notes 2</string>
 </resources>

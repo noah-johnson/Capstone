@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private EditText mEtMessage;
+    private EditText mEtMessage2;
     private Button mBtWrite;
     private Button mBtRead;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
     private void initViews() {
 
         mEtMessage = (EditText) findViewById(R.id.et_message);
+        mEtMessage2 = (EditText) findViewById(R.id.et_message_2);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
 
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
 
                 if (isWrite) {
 
-                    String messageToWrite = mEtMessage.getText().toString();
+                    String messageToWrite = mEtMessage.getText().toString() + mEtMessage2.getText().toString();
                     mNfcWriteFragment = (NFCWriteFragment) getFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
                     mNfcWriteFragment.onNfcDetected(ndef,messageToWrite);
 
