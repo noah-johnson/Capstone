@@ -1,4 +1,4 @@
-package com.learn2crack.nfc;
+package com.slackpack.nfc;
 
 public interface Listener {
 
