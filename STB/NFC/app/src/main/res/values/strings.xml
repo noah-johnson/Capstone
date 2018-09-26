@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">STB Reader/Writer</string>
+    <string name="app_name">STB Patient Logger</string>
     <string name="message_write_error">Error Writing Message</string>
     <string name="message_write_success">Successfully written to STB</string>
     <string name="message_write_progress">Writing to STB..</string>
@@ -7,6 +7,6 @@
     <string name="message_read_tag">Read from STB</string>
     <string name="message_write_tag">Write to STB</string>
     <string name="message_tap_tag">Tap the STB to your device</string>
-    <string name="hint_message_1">Patient Triage Notes 1</string>
-    <string name="hint_message_2">Patient Triage Notes 2</string>
+    <string name="hint_message_first_name">First Name</string>
+    <string name="hint_message_last_name">Last Name</string>
 </resources>
