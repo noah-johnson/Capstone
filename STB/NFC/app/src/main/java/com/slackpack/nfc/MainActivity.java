@@ -1,5 +1,6 @@
 package com.slackpack.nfc;
 
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,18 +10,27 @@ import android.nfc.tech.Ndef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements Listener{
+import java.util.Calendar;
+
+
+public class MainActivity extends AppCompatActivity implements Listener, View.OnClickListener {
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private EditText mEtFirstName;
     private EditText mEtLastName;
+    private EditText mEtPatientDob;
     private Button mBtWrite;
     private Button mBtRead;
+
+    // Date variables
+    private int mYear, mMonth, mDay;
 
     private NFCWriteFragment mNfcWriteFragment;
     private NFCReadFragment mNfcReadFragment;
@@ -37,17 +47,45 @@ public class MainActivity extends AppCompatActivity implements Listener{
 
         initViews();
         initNFC();
+
     }
 
     private void initViews() {
 
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
         mEtLastName = (EditText) findViewById(R.id.et_patient_last_name);
+        mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
 
+        mEtPatientDob.setOnClickListener(this);
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == mEtPatientDob) {
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            mEtPatientDob.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
     }
 
     private void initNFC(){
