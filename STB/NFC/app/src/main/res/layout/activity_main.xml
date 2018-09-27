@@ -12,9 +12,18 @@
     tools:context="com.slackpack.nfc.MainActivity">
 
     <EditText
+        android:id="@+id/et_responder_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/hint_message_responder_id"/>
+
+    <EditText
         android:id="@+id/et_patient_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/et_responder_id"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:inputType="text"
         android:hint="@string/hint_message_first_name"/>
 
@@ -26,12 +35,13 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:inputType="text"
         android:hint="@string/hint_message_last_name"/>
-    
+
     <EditText
         android:id="@+id/et_patient_dob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_patient_last_name"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:focusable="false"
         android:inputType="date"
         android:hint="@string/hint_message_dob"/>

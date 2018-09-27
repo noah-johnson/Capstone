@@ -6,8 +6,9 @@
     <string name="message_tag_detected">STB Detected</string>
     <string name="message_read_tag">Read from STB</string>
     <string name="message_write_tag">Write to STB</string>
-    <string name="message_tap_tag">Tap the STB to your device</string>
+    <string name="message_tap_tag">Touch your device to the STB</string>
+    <string name="hint_message_responder_id">Responder ID</string>
     <string name="hint_message_first_name">First Name</string>
     <string name="hint_message_last_name">Last Name</string>
-    <string name="hint_message_dob">DD/MM/YYYY</string>
+    <string name="hint_message_dob">DOB</string>
 </resources>

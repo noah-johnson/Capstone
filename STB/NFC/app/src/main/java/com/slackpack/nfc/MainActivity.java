@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    private EditText mEtResponderId;
     private EditText mEtFirstName;
     private EditText mEtLastName;
     private EditText mEtPatientDob;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
     private void initViews() {
 
+        mEtResponderId = (EditText) findViewById(R.id.et_responder_id);
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
         mEtLastName = (EditText) findViewById(R.id.et_patient_last_name);
         mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
@@ -169,9 +171,13 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
                 if (isWrite) {
 
-                    String messageToWrite = mEtFirstName.getText().toString() +
+                    String messageToWrite = mEtResponderId.getText().toString() +
                                             "\n" +
-                                            mEtLastName.getText().toString();
+                                            mEtFirstName.getText().toString() +
+                                            "\n" +
+                                            mEtLastName.getText().toString() +
+                                            "\n" +
+                                            mEtPatientDob.getText().toString();
                     mNfcWriteFragment = (NFCWriteFragment) getFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
                     mNfcWriteFragment.onNfcDetected(ndef,messageToWrite);
 
