@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_responder_id"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:hint="@string/hint_message_first_name"/>
 
     <EditText
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_patient_first_name"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:hint="@string/hint_message_last_name"/>
 
     <EditText
