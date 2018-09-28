@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    // Element objects
     private EditText mEtResponderId;
     private EditText mEtFirstName;
     private EditText mEtLastName;
@@ -33,14 +34,18 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     // Date variables
     private int mYear, mMonth, mDay;
 
+    // Fragment objects
     private NFCWriteFragment mNfcWriteFragment;
     private NFCReadFragment mNfcReadFragment;
 
+    // Boolean variables to track the state read/write dialogs being displayed
     private boolean isDialogDisplayed = false;
     private boolean isWrite = false;
 
     private NfcAdapter mNfcAdapter;
 
+    // Activities are initialized here
+    // This is basically the main() function for the app
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
     private void initViews() {
 
+        // Initialize elements here using their id set in activity_main.xml
         mEtResponderId = (EditText) findViewById(R.id.et_responder_id);
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
         mEtLastName = (EditText) findViewById(R.id.et_patient_last_name);
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
 
+        // Set up listeners for elements that can be tapped
         mEtPatientDob.setOnClickListener(this);
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
@@ -68,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     @Override
     public void onClick(View view) {
 
+        // When the dob EditText is tapped this calendar view
+        // will be created programmatically in java and displayed
+        // to the user TODO: Cleanup code warnings
         if (view == mEtPatientDob) {
             final Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);
@@ -89,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
             datePickerDialog.show();
         }
     }
+
+    // Nothing below here really needs to be touched as it contains
+    // the listener and fragment calls for the read/write buttons
+    // and handles NFC handshakes etc. The exception is in the onNewIntent
+    // method where we build the string to be written to the tag
 
     private void initNFC(){
 
@@ -171,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
                 if (isWrite) {
 
+                    // Add field values here as they're created
                     String messageToWrite = mEtResponderId.getText().toString() +
                                             "\n" +
                                             mEtFirstName.getText().toString() +
