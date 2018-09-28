@@ -15,7 +15,7 @@
         android:id="@+id/et_responder_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="number"
         android:hint="@string/hint_message_responder_id"/>
 
     <EditText
