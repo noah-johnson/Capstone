@@ -10,6 +10,8 @@ import android.nfc.tech.Ndef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     private EditText mEtPatientDob;
     private Button mBtWrite;
     private Button mBtRead;
-    private Button mBtClear;
 
     // Date variables
     private int mYear, mMonth, mDay;
@@ -67,13 +68,18 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
-        mBtClear = (Button) findViewById(R.id.btn_clear);
 
         // Set up listeners for elements that can be tapped
         mEtPatientDob.setOnClickListener(this);
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
-        mBtClear.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     private void clearForm(ViewGroup group) {
@@ -87,7 +93,16 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                 clearForm((ViewGroup)view);
         }
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+        case R.id.clear_button:
+            clearForm((ViewGroup) findViewById(R.id.scroll_id));
+            return(true);
+    }
+        return(super.onOptionsItemSelected(item));
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -113,10 +128,6 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
-        }
-
-        if (view == mBtClear) {
-            clearForm((ViewGroup) findViewById(R.id.scroll_id));
         }
     }
 
