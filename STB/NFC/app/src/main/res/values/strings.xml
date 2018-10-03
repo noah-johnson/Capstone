@@ -7,6 +7,7 @@
     <string name="message_read_tag">Read from STB</string>
     <string name="message_write_tag">Write to STB</string>
     <string name="message_tap_tag">Touch your device to the STB</string>
+    <string name="message_clear">Clear</string>
     <string name="hint_message_responder_id">Responder ID</string>
     <string name="hint_message_first_name">First Name</string>
     <string name="hint_message_last_name">Last Name</string>

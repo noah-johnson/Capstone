@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     private EditText mEtPatientDob;
     private Button mBtWrite;
     private Button mBtRead;
+    private Button mBtClear;
 
     // Date variables
     private int mYear, mMonth, mDay;
@@ -65,13 +67,27 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
+        mBtClear = (Button) findViewById(R.id.btn_clear);
 
         // Set up listeners for elements that can be tapped
         mEtPatientDob.setOnClickListener(this);
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
+        mBtClear.setOnClickListener(this);
     }
 
+    private void clearForm(ViewGroup group) {
+        for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+            View view = group.getChildAt(i);
+            if (view instanceof EditText) {
+                ((EditText)view).setText("");
+            }
+
+            if(view instanceof ViewGroup && (((ViewGroup)view).getChildCount() > 0))
+                clearForm((ViewGroup)view);
+        }
+    }
+    
     @Override
     public void onClick(View view) {
 
@@ -97,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
+        }
+
+        if (view == mBtClear) {
+            clearForm((ViewGroup) findViewById(R.id.scroll_id));
         }
     }
 
