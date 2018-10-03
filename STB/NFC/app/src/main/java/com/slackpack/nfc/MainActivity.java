@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     public static final String TAG = MainActivity.class.getSimpleName();
 
     // Element objects
-    private Spinner mSpinnerTest;
+    private Spinner mSpinnerResponderLevel;
     private EditText mEtResponderId;
     private EditText mEtFirstName;
     private EditText mEtLastName;
@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     private void initViews() {
 
         // Initialize elements here using their id set in activity_main.xml
-        mSpinnerTest = (Spinner) findViewById(R.id.spinner_test);
+        mSpinnerResponderLevel = (Spinner) findViewById(R.id.spinner_responder_level);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.responder_level_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        mSpinnerTest.setAdapter(adapter);
+        mSpinnerResponderLevel.setAdapter(adapter);
 
         mEtResponderId = (EditText) findViewById(R.id.et_responder_id);
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
