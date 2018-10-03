@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
     // Element objects
     private Spinner mSpinnerResponderLevel;
+    private RadioGroup mRadioResponderLevel;
+    private RadioButton mRadioButtonOne;
+    private RadioButton mRadioButtonTwo;
     private EditText mEtResponderId;
     private EditText mEtFirstName;
     private EditText mEtLastName;
@@ -73,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         mSpinnerResponderLevel.setAdapter(adapter);
+
+        mRadioResponderLevel = (RadioGroup) findViewById(R.id.radio_responder_level);
+        mRadioButtonOne = (RadioButton) findViewById(R.id.radio_one);
+        mRadioButtonTwo = (RadioButton) findViewById(R.id.radio_two);
 
         mEtResponderId = (EditText) findViewById(R.id.et_responder_id);
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
@@ -231,6 +240,10 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
                     // Add field values here as they're created
                     String messageToWrite = mEtResponderId.getText().toString() +
+                                            "\n" +
+                                            mSpinnerResponderLevel.getSelectedItem().toString() +
+                                            "\n" +
+                                            ((RadioButton)findViewById(mRadioResponderLevel.getCheckedRadioButtonId())).getText().toString() +
                                             "\n" +
                                             mEtFirstName.getText().toString() +
                                             "\n" +

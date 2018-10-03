@@ -18,4 +18,6 @@
         <item>Two</item>
         <item>Three</item>
     </string-array>
+    <string name="one">One</string>
+    <string name="two">Two</string>
 </resources>

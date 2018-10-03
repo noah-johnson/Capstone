@@ -18,75 +18,93 @@
         android:gravity="center"
         tools:context="com.slackpack.nfc.MainActivity">
 
-    <EditText
-        android:id="@+id/et_responder_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/hint_message_responder_id"/>
+        <EditText
+            android:id="@+id/et_responder_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/hint_message_responder_id"/>
 
-    <TextView
-        android:id="@+id/tv_responder_level"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_responder_id"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="5dp"
-        android:text="@string/responder_level"/>
+        <TextView
+            android:id="@+id/tv_responder_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_responder_id"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="5dp"
+            android:text="@string/responder_level"/>
 
-    <Spinner
-        android:id="@+id/spinner_responder_level"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_responder_level"
-        android:spinnerMode="dialog"
-        android:prompt="@string/responder_level"/>
+        <Spinner
+            android:id="@+id/spinner_responder_level"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_responder_level"
+            android:spinnerMode="dialog"
+            android:prompt="@string/responder_level"/>
 
-    <EditText
-        android:id="@+id/et_patient_first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_responder_level"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:inputType="textCapSentences"
-        android:hint="@string/hint_message_first_name"/>
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_responder_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinner_responder_level"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/radio_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:checked="true"/>
+            <RadioButton android:id="@+id/radio_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/two" />
+        </RadioGroup>
 
-    <EditText
-        android:id="@+id/et_patient_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_patient_first_name"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:inputType="textCapSentences"
-        android:hint="@string/hint_message_last_name"/>
+        <EditText
+            android:id="@+id/et_patient_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radio_responder_level"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:inputType="textCapSentences"
+            android:hint="@string/hint_message_first_name"/>
 
-    <EditText
-        android:id="@+id/et_patient_dob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_patient_last_name"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:focusable="false"
-        android:inputType="date"
-        android:hint="@string/hint_message_dob"/>
+        <EditText
+            android:id="@+id/et_patient_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_patient_first_name"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:inputType="textCapSentences"
+            android:hint="@string/hint_message_last_name"/>
 
-    <Button
-        android:id="@+id/btn_write"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_patient_dob"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/message_write_tag"
-        style="@style/Widget.AppCompat.Button.Colored"/>
+        <EditText
+            android:id="@+id/et_patient_dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_patient_last_name"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:focusable="false"
+            android:inputType="date"
+            android:hint="@string/hint_message_dob"/>
 
-    <Button
-        android:id="@+id/btn_read"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_write"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/message_read_tag"
-        style="@style/Widget.AppCompat.Button.Colored"/>
+        <Button
+            android:id="@+id/btn_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_patient_dob"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/message_write_tag"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+        <Button
+            android:id="@+id/btn_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_write"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/message_read_tag"
+            style="@style/Widget.AppCompat.Button.Colored"/>
     </RelativeLayout>
 </ScrollView>
