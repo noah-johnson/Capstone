@@ -110,8 +110,16 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                 ((EditText)view).setText("");
             }
 
-            if(view instanceof ViewGroup && (((ViewGroup)view).getChildCount() > 0))
+            if (view instanceof ViewGroup && (((ViewGroup)view).getChildCount() > 0))
                 clearForm((ViewGroup)view);
+
+            if (view instanceof RadioGroup) {
+                ((RadioGroup)view).clearCheck();
+            }
+
+            if (view instanceof Spinner) {
+                ((Spinner)view).setSelection(0);
+            }
         }
     }
 
