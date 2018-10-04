@@ -20,4 +20,5 @@
     </string-array>
     <string name="one">One</string>
     <string name="two">Two</string>
+    <string name="hint_message_chief_complaint">Chief Complaint</string>
 </resources>

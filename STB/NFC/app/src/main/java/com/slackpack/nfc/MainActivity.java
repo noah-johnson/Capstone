@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     private EditText mEtFirstName;
     private EditText mEtLastName;
     private EditText mEtPatientDob;
+    private EditText mEtChiefComplaint;
     private Button mBtWrite;
     private Button mBtRead;
 
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
         mEtLastName = (EditText) findViewById(R.id.et_patient_last_name);
         mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
+        mEtChiefComplaint = (EditText) findViewById(R.id.et_patient_chief_complaint);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
 
@@ -257,7 +259,9 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                                             "\n" +
                                             mEtLastName.getText().toString() +
                                             "\n" +
-                                            mEtPatientDob.getText().toString();
+                                            mEtPatientDob.getText().toString() +
+                                            "\n" +
+                                            mEtChiefComplaint.getText().toString();
                     mNfcWriteFragment = (NFCWriteFragment) getFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
                     mNfcWriteFragment.onNfcDetected(ndef,messageToWrite);
 
