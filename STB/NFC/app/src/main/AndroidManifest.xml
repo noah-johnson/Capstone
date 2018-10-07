@@ -3,6 +3,10 @@
     package="com.slackpack.nfc">
 
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
 
     <application
         android:allowBackup="true"
@@ -18,5 +22,7 @@
             </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>

@@ -13,6 +13,7 @@
     <string name="hint_message_last_name">Last Name</string>
     <string name="hint_message_dob">DOB</string>
     <string name="responder_level">Responder Level</string>
+    <string name="location">Location</string>
     <string-array name="responder_level_array">
         <item>One</item>
         <item>Two</item>
@@ -21,4 +22,10 @@
     <string name="one">One</string>
     <string name="two">Two</string>
     <string name="hint_message_chief_complaint">Chief Complaint</string>
+    <string name="give_location_permission">Give Location Permissions?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="location_unavailable">Location Unavailable</string>
+    <string name="location_permission_granted">Location Permissions Granted</string>
+    <string name="location_permission_denied">Location Permissions Denied</string>
 </resources>

@@ -34,6 +34,7 @@
             android:layout_marginStart="5dp"
             android:text="@string/responder_level"/>
 
+
         <Spinner
             android:id="@+id/spinner_responder_level"
             android:layout_width="fill_parent"
@@ -89,10 +90,27 @@
             android:hint="@string/hint_message_dob"/>
 
         <EditText
-            android:id="@+id/et_patient_chief_complaint"
+            android:id="@+id/et_location"
+            android:inputType="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_patient_dob"
+            android:layout_marginTop="16dp"
+            android:hint="Location"/>
+
+        <Button
+            android:id="@+id/btn_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_location"
+            android:layout_marginTop="16dp"
+            android:hint="Get Location"/>
+
+        <EditText
+            android:id="@+id/et_patient_chief_complaint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_location"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:maxLines="10"

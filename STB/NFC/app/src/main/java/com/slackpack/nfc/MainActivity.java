@@ -1,12 +1,26 @@
 package com.slackpack.nfc;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
+import android.os.Looper;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,12 +35,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 
-public class MainActivity extends AppCompatActivity implements Listener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements Listener, View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -40,11 +55,28 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     private EditText mEtLastName;
     private EditText mEtPatientDob;
     private EditText mEtChiefComplaint;
+    private EditText mEtLocation; //TODO: do we want user to be able to edit location or solely pull from phone location data?
+    private Button mBtLocation;
     private Button mBtWrite;
     private Button mBtRead;
+    private final Looper looper = null;
 
     // Date variables
     private int mYear, mMonth, mDay;
+
+    //Managers
+    LocationManager locationManager;
+
+    LocationListener locationListener;
+
+    //Location Data
+    Location currLocation;
+
+    // Location Permission
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
+
+    // Context
+    private Context mContext;
 
     // Fragment objects
     private NFCWriteFragment mNfcWriteFragment;
@@ -63,9 +95,37 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("app started", "can you see meeeeeeeeeeeeeee");
+
         initViews();
         initNFC();
 
+        mContext = getApplicationContext();
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                currLocation = location;
+                Log.d("Location changes", location.toString());
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("Status Changed", String.valueOf(status));
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.d("Provider Enabled", provider);
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.d("Provider Disabled", provider);
+            }
+        };
+
+        initLocationUpdates();
     }
 
     private void initViews() {
@@ -89,8 +149,11 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mEtLastName = (EditText) findViewById(R.id.et_patient_last_name);
         mEtPatientDob = (EditText) findViewById(R.id.et_patient_dob);
         mEtChiefComplaint = (EditText) findViewById(R.id.et_patient_chief_complaint);
+        mEtLocation = (EditText) findViewById(R.id.et_location);
+        mBtLocation = (Button) findViewById(R.id.btn_location);
         mBtWrite = (Button) findViewById(R.id.btn_write);
         mBtRead = (Button) findViewById(R.id.btn_read);
+
 
         // Set up listeners for elements that can be tapped
         mEtPatientDob.setOnClickListener(this);
@@ -121,6 +184,10 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
             if (view instanceof Spinner) {
                 ((Spinner)view).setSelection(0);
+            }
+
+            if (view instanceof TextView) {
+                ((TextView) view).setText("");
             }
         }
     }
@@ -160,7 +227,147 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
         }
+
+        if (view == mBtLocation) {
+            Log.d("Click", "Location Button Clicked");
+            getCurrLocation();
+            if (currLocation == null) {
+                mEtLocation.setText("y nmo work");
+            }
+
+            else {
+                mEtLocation.setText(currLocation.toString());
+
+            }
+        }
     }
+
+
+    //The code below this deals with getting the location data
+
+    private Boolean isLocationEnabled() {
+
+        int locationMode = Settings.Secure.getInt(
+                mContext.getContentResolver(),
+                Settings.Secure.LOCATION_MODE,
+                0
+        );
+
+        return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+    }
+
+    // Updates location member of MainActivity; displays alertbox if
+    private void getCurrLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && isLocationEnabled()){
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            criteria.setPowerRequirement(Criteria.POWER_LOW);
+            criteria.setAltitudeRequired(false);
+            criteria.setBearingRequired(false);
+            criteria.setSpeedRequired(false);
+            criteria.setCostAllowed(true);
+            criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+            criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
+
+            locationManager.requestSingleUpdate(criteria, locationListener, looper);
+            currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+
+        else if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermissions();
+        }
+
+        else  {
+            //TODO: below doesnt work
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Your Device's GPS is Disable")
+                    .setCancelable(false)
+                    .setTitle("** Gps Status **")
+                    .setPositiveButton("Gps On",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // finish the current activity
+                                    // AlertBoxAdvance.this.finish();
+                                    Intent myIntent = new Intent(
+                                            Settings.ACTION_SECURITY_SETTINGS);
+                                    startActivity(myIntent);
+                                    dialog.cancel();
+                                }
+                            })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // cancel the dialog box
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+    }
+
+
+    public void requestLocationPermissions() {
+        // Permission has not been granted and must be requested.
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with cda button to request the missing permission.
+            android.support.design.widget.Snackbar.make(mBtLocation, R.string.give_location_permission,
+                    android.support.design.widget.Snackbar.LENGTH_INDEFINITE).setAction(R.string.ok, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                }
+            }).show();
+
+        } else {
+            android.support.design.widget.Snackbar.make(mBtLocation, R.string.location_unavailable, android.support.design.widget.Snackbar.LENGTH_SHORT).show();
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // BEGIN_INCLUDE(onRequestPermissionsResult)
+        if (requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION) {
+            // Request for camera permission.
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission has been granted. Start camera preview Activity.
+                android.support.design.widget.Snackbar.make(mBtLocation, R.string.location_permission_granted,
+                        android.support.design.widget.Snackbar.LENGTH_SHORT)
+                        .show();
+
+            } else {
+                // Permission request was denied.
+                android.support.design.widget.Snackbar.make(mBtLocation, R.string.location_permission_denied,
+                        android.support.design.widget.Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        // END_INCLUDE(onRequestPermissionsResult)
+    }
+
+
+
+    private void initLocationUpdates() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && isLocationEnabled()){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,60000,100,locationListener);
+
+        }
+    }
+
 
     // Nothing below here really needs to be touched as it contains
     // the listener and fragment calls for the read/write buttons
@@ -261,7 +468,10 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                                             "\n" +
                                             mEtPatientDob.getText().toString() +
                                             "\n" +
+                                            mEtLocation.getText().toString() +
+                                            "\n" +
                                             mEtChiefComplaint.getText().toString();
+                    //TODO: add new fields
                     mNfcWriteFragment = (NFCWriteFragment) getFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
                     mNfcWriteFragment.onNfcDetected(ndef,messageToWrite);
 
