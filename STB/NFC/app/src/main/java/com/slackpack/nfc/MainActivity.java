@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         mEtPatientDob.setOnClickListener(this);
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
+        mBtLocation.setOnClickListener(this);
+
     }
 
     @Override
@@ -232,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
             Log.d("Click", "Location Button Clicked");
             getCurrLocation();
             if (currLocation == null) {
-                mEtLocation.setText("y nmo work");
+                mEtLocation.setText("Need Location Data");
             }
 
             else {
@@ -258,10 +260,11 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
     // Updates location member of MainActivity; displays alertbox if
     private void getCurrLocation() {
+        Log.d("get curr", "location called");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED && isLocationEnabled()){
             Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
             criteria.setPowerRequirement(Criteria.POWER_LOW);
             criteria.setAltitudeRequired(false);
             criteria.setBearingRequired(false);
@@ -277,10 +280,12 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         else if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermissions();
+            Log.d("im", "over here");
         }
 
         else  {
             //TODO: below doesnt work
+            Log.d("build that", "dialog box");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Your Device's GPS is Disable")
                     .setCancelable(false)
@@ -289,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // finish the current activity
-                                    // AlertBoxAdvance.this.finish();
+                                    //AlertBoxAdvance.this.finish();
                                     Intent myIntent = new Intent(
                                             Settings.ACTION_SECURITY_SETTINGS);
                                     startActivity(myIntent);
