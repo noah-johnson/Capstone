@@ -32,7 +32,7 @@
             android:layout_below="@id/et_responder_id"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginStart="5dp"
-            android:text="@string/responder_level"/>
+            android:text="@string/hint_message_triage_level"/>
 
 
         <Spinner
@@ -41,8 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_responder_level"
             android:spinnerMode="dialog"
-            android:prompt="@string/responder_level"/>
+            android:prompt="@string/hint_message_triage_level"/>
 
+        <!--
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/radio_responder_level"
             android:layout_width="match_parent"
@@ -53,19 +54,20 @@
             <RadioButton android:id="@+id/radio_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/one"
+                android:text="@string/Option1"
                 android:checked="true"/>
             <RadioButton android:id="@+id/radio_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/two" />
+                android:text="@string/Option2" />
         </RadioGroup>
+        -->
 
         <EditText
             android:id="@+id/et_patient_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radio_responder_level"
+            android:layout_below="@+id/spinner_responder_level"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:inputType="textCapSentences"
             android:hint="@string/hint_message_first_name"/>

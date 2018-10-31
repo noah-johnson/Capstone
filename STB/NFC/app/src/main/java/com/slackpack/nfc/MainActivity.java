@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
 
     // Element objects
     private Spinner mSpinnerResponderLevel;
-    private RadioGroup mRadioResponderLevel;
-    private RadioButton mRadioButtonOne;
-    private RadioButton mRadioButtonTwo;
+    //private RadioGroup mRadioResponderLevel;
+    //private RadioButton mRadioButtonOne;
+    //private RadioButton mRadioButtonTwo;
     private EditText mEtResponderId;
     private EditText mEtFirstName;
     private EditText mEtLastName;
@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
         // Apply the adapter to the spinner
         mSpinnerResponderLevel.setAdapter(adapter);
 
-        mRadioResponderLevel = (RadioGroup) findViewById(R.id.radio_responder_level);
-        mRadioButtonOne = (RadioButton) findViewById(R.id.radio_one);
-        mRadioButtonTwo = (RadioButton) findViewById(R.id.radio_two);
+        //mRadioResponderLevel = (RadioGroup) findViewById(R.id.radio_responder_level);
+        //mRadioButtonOne = (RadioButton) findViewById(R.id.radio_one);
+        //mRadioButtonTwo = (RadioButton) findViewById(R.id.radio_two);
 
         mEtResponderId = (EditText) findViewById(R.id.et_responder_id);
         mEtFirstName = (EditText) findViewById(R.id.et_patient_first_name);
@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
     // Updates location member of MainActivity; displays alertbox if
     private void getCurrLocation() {
         Log.d("get curr", "location called");
+        Log.d("loc", "enabled:" + isLocationEnabled());
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED && isLocationEnabled()){
             Criteria criteria = new Criteria();
@@ -274,13 +275,13 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
             criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);
 
             locationManager.requestSingleUpdate(criteria, locationListener, looper);
-            currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //currLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Log.d("current location", "Value: " + currLocation);
         }
 
         else if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermissions();
-            Log.d("im", "over here");
         }
 
         else  {
@@ -465,8 +466,8 @@ public class MainActivity extends AppCompatActivity implements Listener, View.On
                                             "\n" +
                                             mSpinnerResponderLevel.getSelectedItem().toString() +
                                             "\n" +
-                                            ((RadioButton)findViewById(mRadioResponderLevel.getCheckedRadioButtonId())).getText().toString() +
-                                            "\n" +
+                                            //((RadioButton)findViewById(mRadioResponderLevel.getCheckedRadioButtonId())).getText().toString() +
+                                            //"\n" +
                                             mEtFirstName.getText().toString() +
                                             "\n" +
                                             mEtLastName.getText().toString() +

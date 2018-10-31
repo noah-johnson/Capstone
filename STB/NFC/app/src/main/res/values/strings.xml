@@ -9,18 +9,19 @@
     <string name="message_tap_tag">Touch your device to the STB</string>
     <string name="message_clear">Clear</string>
     <string name="hint_message_responder_id">Responder ID</string>
-    <string name="hint_message_first_name">First Name</string>
-    <string name="hint_message_last_name">Last Name</string>
+    <string name="hint_message_first_name">Patient First Name</string>
+    <string name="hint_message_last_name">Patient Last Name</string>
     <string name="hint_message_dob">DOB</string>
-    <string name="responder_level">Responder Level</string>
+    <string name="hint_message_triage_level">Patient Triage Level</string>
     <string name="location">Location</string>
     <string-array name="responder_level_array">
-        <item>One</item>
-        <item>Two</item>
-        <item>Three</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Red</item>
     </string-array>
-    <string name="one">One</string>
-    <string name="two">Two</string>
+    <string name="Option1">Green</string>
+    <string name="Option2">Yellow</string>
+    <string name="Option3">Red</string>
     <string name="hint_message_chief_complaint">Chief Complaint</string>
     <string name="give_location_permission">Give Location Permissions?</string>
     <string name="ok">OK</string>
